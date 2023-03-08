@@ -1,0 +1,62 @@
+﻿@model RoleViewModel
+@{
+    ViewData["Title"] = "CreateRole";
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Create Role</h3>
+    </div>
+    <form asp-action="CreateRole">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="roleName">Role Name</label>
+                <input type="text" class="form-control" id="roleName" name="roleName" placeholder="Enter Role Name">
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+</div>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Role List</h3>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Role Name</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.roleList)
+                {
+                    <tr>
+                        <td>@item.roleName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}

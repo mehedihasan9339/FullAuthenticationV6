@@ -1,0 +1,91 @@
+﻿@model AssignRoleViewModel
+
+@{
+    ViewData["Title"] = "AssignROle";
+}
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Assign Role</h3>
+    </div>
+    <form asp-action="AssignRole">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="roleName">User Name</label>
+                <select class="form-control select2" name="userName" id="userName">
+                    <option value="">Choose User</option>
+                    @foreach(var item in Model.users){
+                        <option value="@item.UserName">@item.UserName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="roleName">Role Name</label>
+                <select class="form-control select2" name="roleName" id="roleName">
+                    <option value="">Choose Role</option>
+                    @foreach(var item in Model.roles){
+                        <option value="@item.roleName">@item.roleName</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </div>
+    </form>
+</div>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Role Wise Users</h3>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Role Name</th>
+                    <th>Users</th>
+                </tr>
+            </thead>
+
+            <tbody>
+               @foreach (var item in Model.roleUsers)
+                {
+                    <tr>
+                        <td>@item.roleName</td>
+                        <td>
+                            <ul>
+                                @foreach (var user in item.users)
+                                {
+                                    <li>@user</li>
+                                }
+                            </ul>
+                        </td>
+                   </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('#userName').select2();
+            $('#roleName').select2();
+
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
